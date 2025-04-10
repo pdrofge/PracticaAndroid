@@ -8,3 +8,8 @@ import kotlinx.serialization.Serializable
 object Home {
     const val route ="home"
 }
+
+@Serializable
+object SmartSolar {
+    const val route ="smartsolar"
+}

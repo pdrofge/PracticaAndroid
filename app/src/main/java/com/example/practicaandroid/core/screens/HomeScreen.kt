@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navigateToSS: () -> Unit){
     //dos destinos: facturas y smart solar
     Box(
         modifier = Modifier
@@ -44,11 +44,12 @@ fun HomeScreen(){
                 painter = painterResource(id = R.drawable.iberdrola),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(300.dp)
             )
 
             // Subtítulo
             Text(
+                //más adelante preguntar trato
                 text = "Bienvenido/a de nuevo",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,
@@ -69,7 +70,7 @@ fun HomeScreen(){
             }
 
             Button(
-                onClick = {  },
+                onClick = {navigateToSS()},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),
