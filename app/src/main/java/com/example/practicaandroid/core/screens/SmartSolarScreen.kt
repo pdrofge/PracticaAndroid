@@ -75,8 +75,9 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 edgePadding = 16.dp,
                 contentColor = Color.Black, // Color para el index
+                divider = {}, // Eliminamos  linea debajo de los elementos
                 indicator = { tabPositions ->
-                    TabRowDefaults.Indicator(
+                    TabRowDefaults.SecondaryIndicator(
                         Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                         color = Color.Black // Color del indicador (barra inferior)
                     )
@@ -96,7 +97,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(28.dp))
+            //Spacer(modifier = Modifier.height(28.dp))
 
             when (selectedTabIndex) {
                 0 -> MiInstalacionScreen()
