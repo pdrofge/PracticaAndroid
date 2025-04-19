@@ -42,7 +42,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp)
-                    .clickable {navigateBack()} //acción de ir hacia atrás
+                    .clickable {navigateBack()} //Acción de ir hacia atrás
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -97,7 +97,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 }
             }
 
-            //Spacer(modifier = Modifier.height(28.dp))
+
 
             when (selectedTabIndex) {
                 0 -> MiInstalacionScreen()

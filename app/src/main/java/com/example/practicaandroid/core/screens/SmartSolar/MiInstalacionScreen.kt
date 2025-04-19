@@ -24,12 +24,12 @@ fun MiInstalacionScreen(){
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            //.fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        // Texto principal
+
         Text(
             text = "Aquí tienes los datos de tu instalación fotovoltaica en tiempo real",
             color = Color.Black,
@@ -38,31 +38,31 @@ fun MiInstalacionScreen(){
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        // Texto de Autoconsumo
+
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 text = "Autoconsumo: ",
-                color = Color.Black.copy(alpha = 0.6f),
+                color = Color.Black.copy(alpha = 0.6f), //color más claro
                 fontSize = 12.sp
             )
             Text(
                 text = "92%",
                 color = Color.Black,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold  //negrita
             )
         }
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        // Imagen del gráfico
+
         Image(
             painter = painterResource(id = R.drawable.grafico1_sin_fondo),
             contentDescription = "Gráfico de instalación solar",
             modifier = Modifier
-                .fillMaxWidth()
-                .height(350.dp) // Ajusta esto según el tamaño deseado
-                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth() //para que ocupe todo el ancho
+                .height(350.dp)
+                //.align(Alignment.CenterHorizontally) no es necesario
         )
 
         Spacer(modifier = Modifier.weight(1f)) // Empuja el contenido hacia arriba dejando espacio inferior

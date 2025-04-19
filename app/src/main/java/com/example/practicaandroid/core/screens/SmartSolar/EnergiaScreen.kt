@@ -22,10 +22,10 @@ import com.example.practicaandroid.R
 fun EnergiaScreen(){
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            //.fillMaxSize()  //en este caso no afecta
             .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally  //para desplazar al centro el texto
     ) {
 
 
@@ -35,11 +35,11 @@ fun EnergiaScreen(){
 
         Image(
             painter = painterResource(id = R.drawable.energia_sin_fondo),
-            contentDescription = "Gráfico de mantenimiento",
+            contentDescription = "Imagen de mantenimiento",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp) // Ajusta esto según el tamaño deseado
-                .align(Alignment.CenterHorizontally)
+                .height(180.dp)
+                //.align(Alignment.CenterHorizontally)  //en este caso no afecta
         )
 
         Spacer(modifier = Modifier.height(100.dp))
@@ -50,11 +50,11 @@ fun EnergiaScreen(){
         Text(
             text = "Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo, " +
                     "en breve podrás seguir viendo tu producción solar. Sentimos las molestias.",
-            color = Color(0xFF4F4F4F), // Gris suave
+            color = Color(0xFF4F4F4F),
             fontSize = 19.sp,
             fontWeight = FontWeight.Normal,
             modifier = Modifier
-                .fillMaxWidth(0.75f), // Para limitar el ancho del texto
+                .fillMaxWidth(0.75f), // para limitar el ancho del texto
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
 
@@ -62,7 +62,7 @@ fun EnergiaScreen(){
 
 
 
-        //Spacer(modifier = Modifier.weight(1f)) // Empuja el contenido hacia arriba dejando espacio inferior
+
 
 
 
