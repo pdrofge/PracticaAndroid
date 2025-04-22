@@ -34,11 +34,18 @@ import com.example.practicaandroid.core.screens.SmartSolar.*
 @Composable
 fun SmartSolarScreen(navigateBack: () -> Unit) {
 
+
+
         val tabs = listOf("Mi instalación", "Energía", "Detalles")
         var selectedTabIndex by remember { mutableStateOf(0) }
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
+
+
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp)
@@ -57,7 +64,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(18.dp))
 
             Text(
                 text = " Smart Solar",
@@ -67,7 +74,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 modifier = Modifier.padding(start = 8.dp)
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
 
             ScrollableTabRow(
