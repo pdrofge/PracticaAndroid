@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
+import com.example.practicaandroid.core.screens.ContenidoFacturas.ListadoFacturas
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,6 +105,9 @@ fun FacturasScreen(navigateBack: () -> Unit){
                     modifier = Modifier.padding(start = 8.dp)
                 )
 
+                Spacer(modifier = Modifier.height(35.dp))
+
+                ListadoFacturas()
             }
         }
     }
