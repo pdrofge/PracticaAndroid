@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
 
 @Composable
-fun HomeScreen(navigateToSS: () -> Unit){
+fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
     //dos destinos: facturas y smart solar
     Box(
         modifier = Modifier
@@ -58,7 +58,7 @@ fun HomeScreen(navigateToSS: () -> Unit){
 
             // Botones
             Button(
-                onClick = {  },
+                onClick = { navigateToF()},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),

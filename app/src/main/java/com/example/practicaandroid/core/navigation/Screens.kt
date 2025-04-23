@@ -13,3 +13,8 @@ object Home {
 object SmartSolar {
     const val route ="smartsolar"
 }
+
+@Serializable
+object Facturas {
+    const val route = "facturas"
+}
