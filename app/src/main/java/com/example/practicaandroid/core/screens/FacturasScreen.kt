@@ -1,10 +1,7 @@
 package com.example.practicaandroid.core.screens
 
-import android.R.attr.layoutDirection
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +22,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
-import com.example.practicaandroid.core.screens.ContenidoFacturas.ListadoFacturas
+import com.example.practicaandroid.core.screens.ContenidoFacturas.ContenidoFacturas
+import com.example.practicaandroid.data_retrofit.FacturasResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,7 +104,22 @@ fun FacturasScreen(navigateBack: () -> Unit){
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                ListadoFacturas()
+                val facturas = FacturasResponse.listaEstatica.facturas
+
+                if(!facturas.isEmpty()){
+                    ContenidoFacturas(facturas)
+                }else{
+                    Text(
+                        text = " No hay facturas disponibles",
+                        color = Color.Black,
+                        fontSize = 37.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+
+
+
             }
         }
     }
