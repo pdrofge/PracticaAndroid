@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,15 +32,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.practicaandroid.R
 import com.example.practicaandroid.core.screens.ContenidoFacturas.ContenidoFacturas
+import com.example.practicaandroid.core.viewmodel.FacturasViewModel
 import com.example.practicaandroid.data_retrofit.FacturasResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun FacturasScreen(navigateBack: () -> Unit){
+fun FacturasScreen(navigateBack: () -> Unit,viewModel: FacturasViewModel
+){
     val layoutDirection = LocalLayoutDirection.current
+    val facturas = viewModel.facturas.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
