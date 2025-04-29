@@ -14,11 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
 import com.example.practicaandroid.domain.model.Factura
 import java.util.*
 
 @Composable
-fun ContenidoFiltros(listaFacturas: List<Factura>) {
+fun ContenidoFiltros(
+    listaFacturas: List<Factura>,
+    filtrosViewModel: FiltrosViewModel
+                     ) {
 
     val filtrosIniciales = remember { EstructuraFiltros(listaFacturas) }
 
@@ -172,7 +176,7 @@ fun ContenidoFiltros(listaFacturas: List<Factura>) {
 
                     )
 
-
+                filtrosViewModel.enviarFiltros(filtrosElegidos)
 
             },
             colors = buttonColors(

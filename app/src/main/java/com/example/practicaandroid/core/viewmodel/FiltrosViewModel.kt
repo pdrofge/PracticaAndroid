@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.practicaandroid.MainApplication
+import com.example.practicaandroid.core.screens.Filtros.FiltrosFinales
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.example.practicaandroid.data_retrofit.FacturasResponse
@@ -16,6 +17,11 @@ class FiltrosViewModel(
     private val facturasViewModel : FacturasViewModel
 
 ) : ViewModel() {
+
+    fun enviarFiltros(filtros : FiltrosFinales){
+            // Aquí decides si solo lo reenvías...
+            facturasViewModel.aplicarFiltros(filtros)
+    }
 
 
 

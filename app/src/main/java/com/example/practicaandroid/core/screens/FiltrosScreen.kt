@@ -44,30 +44,6 @@ fun FiltrosScreen(navigateBack: () -> Unit,filtrosViewModel: FiltrosViewModel,fa
         topBar = {
             TopAppBar(
                 title = {},
-                navigationIcon = {
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .clickable(
-                                onClick = navigateBack
-                            )
-                            .padding(start = 8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color(0xFF8BC34A)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Consumo",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = Color(0xFF8BC34A)
-                        )
-                    }
-                },
                 actions = {
                     IconButton(onClick = { navigateBack() }) {
                         Icon(
@@ -105,7 +81,7 @@ fun FiltrosScreen(navigateBack: () -> Unit,filtrosViewModel: FiltrosViewModel,fa
                 Spacer(modifier = Modifier.height(35.dp))
 
                 val listaFacturas = facturasViewModel.facturas.collectAsState().value
-                ContenidoFiltros(listaFacturas)
+                ContenidoFiltros(listaFacturas, filtrosViewModel)
 
             }
         }
