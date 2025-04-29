@@ -27,7 +27,7 @@ fun maxPrice(listaFacturas: List<Factura>):Double{
         if(actual > max)max = actual
     }
 
-    return max
+    return max + 1
 }
 
 fun minPrice(listaFacturas: List<Factura>):Double{

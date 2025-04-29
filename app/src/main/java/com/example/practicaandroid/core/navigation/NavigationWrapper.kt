@@ -18,8 +18,12 @@ import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
-    val facturasViewModel: FacturasViewModel = viewModel()
-    val filtrosViewModel: FiltrosViewModel = viewModel()
+    val facturasViewModel: FacturasViewModel = viewModel(
+
+    )
+    val filtrosViewModel: FiltrosViewModel = viewModel(
+        factory = FiltrosViewModel.provideFactory(facturasViewModel)
+    )
     NavHost(navController = navController, startDestination = Home.route){
         composable(Home.route){
             HomeScreen(

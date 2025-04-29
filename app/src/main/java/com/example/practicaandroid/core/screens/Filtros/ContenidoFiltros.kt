@@ -158,6 +158,16 @@ fun ContenidoFiltros(listaFacturas: List<Factura>) {
         OutlinedButton(
             onClick = {
                 // Aquí aplicaremos filtros
+
+                val filtrosElegidos = FiltrosFinales(
+                    startDate = startDate,
+                    endDate = endDate,
+                    minAmount = sliderPosition.start.toDouble(),
+                    maxAmount = sliderPosition.start.toDouble(),
+
+
+                    )
+
             },
             colors = buttonColors(
                 containerColor = Color.White,

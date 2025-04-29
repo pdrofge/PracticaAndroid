@@ -1,6 +1,11 @@
 package com.example.practicaandroid.core.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.practicaandroid.MainApplication
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.example.practicaandroid.data_retrofit.FacturasResponse
@@ -15,4 +20,20 @@ class FacturasViewModel : ViewModel() {
         // De momento cargamos la lista estática
         _facturas.value = FacturasResponse.listaEstatica.facturas
     }
+
+    companion object{
+        val factory : ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val app = (this[APPLICATION_KEY] as MainApplication)
+                val container = app.container
+                FacturasViewModel(
+
+                )
+            }
+        }
+    }
+
 }
+
+
+
