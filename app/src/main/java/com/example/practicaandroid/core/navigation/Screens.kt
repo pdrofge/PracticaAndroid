@@ -18,3 +18,8 @@ object SmartSolar {
 object Facturas {
     const val route = "facturas"
 }
+
+@Serializable
+object Filtros {
+    const val route = "filtros"
+}
