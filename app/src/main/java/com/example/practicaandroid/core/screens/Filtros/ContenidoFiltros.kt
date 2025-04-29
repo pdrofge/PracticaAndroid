@@ -164,9 +164,15 @@ fun ContenidoFiltros(listaFacturas: List<Factura>) {
                     endDate = endDate,
                     minAmount = sliderPosition.start.toDouble(),
                     maxAmount = sliderPosition.start.toDouble(),
-
+                    isPaid = isPaid,
+                    isCancelled = isCancelled,
+                    isFixed = isFixed,
+                    hasToPay = hasToPay,
+                    isPaymentPlan = isPaymentPlan
 
                     )
+
+
 
             },
             colors = buttonColors(
