@@ -15,8 +15,11 @@ fun Filtrar(listaFacturas: List<Factura>, filtros: FiltrosFinales) : List<Factur
 
 
      for(factura in listaFacturas){
-        if(filtrarFecha(factura, filtros.startDate, filtros.endDate) && filtrarImporte(factura, filtros.minAmount,  filtros.maxAmount) &&
-           filtrarEstado(factura, filtros.isPaid, filtros.isPaymentPlan, filtros.hasToPay, filtros.isFixed, filtros.isCancelled)){
+        val fecha = filtrarFecha(factura, filtros.startDate, filtros.endDate)
+        val importe = filtrarImporte(factura, filtros.minAmount,  filtros.maxAmount)
+        val estado = filtrarEstado(factura, filtros.isPaid, filtros.isPaymentPlan, filtros.hasToPay, filtros.isFixed, filtros.isCancelled)
+
+        if(fecha && importe && estado){
            listaFiltrada.add(factura)
         }
      }
@@ -27,17 +30,27 @@ fun Filtrar(listaFacturas: List<Factura>, filtros: FiltrosFinales) : List<Factur
 }
 
 fun filtrarFecha(factura: Factura, startDate: String, endDate: String): Boolean{
-   //Prasea fechas vacías, arreglar
-   val fechaFactura = fechaATiempo(factura.fecha)
-   val startDateTiempo = fechaATiempo(startDate)
-   val endDateTiempo =    fechaATiempo(endDate)
+
+   var fechaFactura : Long = 0L
+   var startDateTiempo : Long = 0L
+   var endDateTiempo : Long = 0L
+
+
+
+
+   if(!factura.fecha.isEmpty()){ fechaFactura  = fechaATiempo(factura.fecha)}
+   if(!startDate.isEmpty()){ startDateTiempo = fechaATiempo(startDate)}
+   if(!endDate.isEmpty()){ endDateTiempo =    fechaATiempo(endDate)}
    val despuesDeStart = startDate.isEmpty() || fechaFactura >= startDateTiempo
    val antesDeEnd = endDate.isEmpty() || fechaFactura <= endDateTiempo
+
+
 
    return despuesDeStart && antesDeEnd
 }
 
 fun filtrarEstado(
+
    factura: Factura,
    paid: Boolean,
    paymentPlan: Boolean,
@@ -45,14 +58,15 @@ fun filtrarEstado(
    fixed: Boolean,
    cancelled: Boolean
 ): Boolean{
-      var res: Boolean = false
-   if((paid && factura.decEstado.equals("Pagada"))
-      || (hasToPay && factura.decEstado.equals("Pendiente de pago"))
-      || (paymentPlan && factura.decEstado.equals("Plan de pago"))
-      || (fixed && factura.decEstado.equals("Fijo"))
-      || (cancelled && factura.decEstado.equals("Cancelado"))
+   //falla al no seleccionar ninguno
+      var res: Boolean = true
+   if((paid && !factura.decEstado.equals("Pagada"))
+      || (hasToPay && !factura.decEstado.equals("Pendiente de pago"))
+      || (paymentPlan && !factura.decEstado.equals("Plan de pago"))
+      || (fixed && !factura.decEstado.equals("Fijo"))
+      || (cancelled && !factura.decEstado.equals("Cancelado"))
       ){
-         res = true
+         res = false
    }
    return res
 }
