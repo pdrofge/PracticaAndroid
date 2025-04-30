@@ -59,7 +59,7 @@ fun ContenidoFiltros(
                     DatePickerDialog(
                         context,
                         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                            startDate = "$dayOfMonth/${month + 1}/$year"
+                            startDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                         },
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
@@ -81,7 +81,7 @@ fun ContenidoFiltros(
                     DatePickerDialog(
                         context,
                         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                            endDate = "$dayOfMonth/${month + 1}/$year"
+                            endDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                         },
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
@@ -162,12 +162,12 @@ fun ContenidoFiltros(
         OutlinedButton(
             onClick = {
                 // Aquí aplicaremos filtros
-
+                //COMPROBAR que no son valores vacíos
                 val filtrosElegidos = FiltrosFinales(
                     startDate = startDate,
                     endDate = endDate,
                     minAmount = sliderPosition.start.toDouble(),
-                    maxAmount = sliderPosition.start.toDouble(),
+                    maxAmount = sliderPosition.endInclusive.toDouble(),
                     isPaid = isPaid,
                     isCancelled = isCancelled,
                     isFixed = isFixed,
@@ -195,10 +195,11 @@ fun ContenidoFiltros(
 
 
         OutlinedButton(
+            //FILTRAR con contenido inicial
             onClick = {
                 startDate = ""
                 endDate = ""
-                sliderPosition = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat()
+                sliderPosition = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat()//nunca será nulo o vacío
                 isPaid = false
                 isCancelled = false
                 isFixed = false

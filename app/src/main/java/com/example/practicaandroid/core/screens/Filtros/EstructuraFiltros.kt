@@ -21,6 +21,7 @@ data class EstructuraFiltros(
 
 
 fun maxPrice(listaFacturas: List<Factura>):Double{
+    if (listaFacturas.isEmpty()) return 0.0
     var max = listaFacturas.get(0).importeOrdenacion
     for(factura in listaFacturas){
         val actual = factura.importeOrdenacion
@@ -31,6 +32,7 @@ fun maxPrice(listaFacturas: List<Factura>):Double{
 }
 
 fun minPrice(listaFacturas: List<Factura>):Double{
+    if (listaFacturas.isEmpty()) return 0.0
     var min = listaFacturas.get(0).importeOrdenacion
     for(factura in listaFacturas){
         val actual = factura.importeOrdenacion
