@@ -22,24 +22,28 @@ import java.util.*
 @Composable
 fun ContenidoFiltros(
     filtrosViewModel: FiltrosViewModel,
-    facturasViewModel: FacturasViewModel
+    facturasViewModel: FacturasViewModel,
+    filtrosPrevios: FiltrosFinales
                      ) {
 
     val filtrosIniciales = remember { EstructuraFiltros(facturasViewModel.facturasIniciales.value) }
 
-    var startDate by remember { mutableStateOf(filtrosIniciales.startDate) }
-    var endDate by remember { mutableStateOf(filtrosIniciales.endDate) }
+    var startDate by remember { mutableStateOf(filtrosPrevios.startDate) }
+    var endDate by remember { mutableStateOf(filtrosPrevios.endDate) }
     var sliderPosition by remember {
-        mutableStateOf(filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat())
+        mutableStateOf(filtrosPrevios.minAmount.toFloat()..filtrosPrevios.maxAmount.toFloat())
     }
-
-    var isPaid by remember { mutableStateOf(filtrosIniciales.isPaid) }
-    var isCancelled by remember { mutableStateOf(filtrosIniciales.isCancelled) }
-    var isFixed by remember { mutableStateOf(filtrosIniciales.isFixed) }
-    var hasToPay by remember { mutableStateOf(filtrosIniciales.hasToPay) }
-    var isPaymentPlan by remember { mutableStateOf(filtrosIniciales.isPaymentPlan) }
+    var isPaid by remember { mutableStateOf(filtrosPrevios.isPaid) }
+    var isCancelled by remember { mutableStateOf(filtrosPrevios.isCancelled) }
+    var isFixed by remember { mutableStateOf(filtrosPrevios.isFixed) }
+    var hasToPay by remember { mutableStateOf(filtrosPrevios.hasToPay) }
+    var isPaymentPlan by remember { mutableStateOf(filtrosPrevios.isPaymentPlan) }
 
     val context = LocalContext.current
+
+
+
+
 
 
 
@@ -208,6 +212,8 @@ fun ContenidoFiltros(
                 isFixed = false
                 hasToPay = false
                 isPaymentPlan = false
+
+
             },
             colors = buttonColors(
                 containerColor = Color.Transparent,

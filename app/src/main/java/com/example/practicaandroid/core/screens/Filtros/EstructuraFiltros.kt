@@ -41,3 +41,5 @@ fun minPrice(listaFacturas: List<Factura>):Double{
 
     return min
 }
+
+

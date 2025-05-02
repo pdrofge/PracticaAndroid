@@ -4,7 +4,7 @@ data class FiltrosFinales(
     val startDate: String = "",
     val endDate: String = "",
     val minAmount: Double = 0.0,
-    val maxAmount: Double = 0.0,
+    val maxAmount: Double = 500.0,
     val isPaid: Boolean = false,
     val isCancelled: Boolean = false,
     val isFixed: Boolean = false,
