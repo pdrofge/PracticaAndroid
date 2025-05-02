@@ -80,8 +80,7 @@ fun FiltrosScreen(navigateBack: () -> Unit,filtrosViewModel: FiltrosViewModel,fa
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                val listaFacturas = facturasViewModel.facturas.collectAsState().value
-                ContenidoFiltros(listaFacturas, filtrosViewModel)
+                ContenidoFiltros(filtrosViewModel,facturasViewModel)
 
             }
         }

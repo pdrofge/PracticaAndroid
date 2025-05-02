@@ -116,8 +116,8 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
                 }else{
                     Text(
                         text = " No hay facturas disponibles",
-                        color = Color.Black,
-                        fontSize = 37.sp,
+                        color = Color.Gray,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 8.dp)
                     )

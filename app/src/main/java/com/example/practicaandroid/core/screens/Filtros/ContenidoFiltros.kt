@@ -14,17 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.practicaandroid.core.viewmodel.FacturasViewModel
 import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
 import com.example.practicaandroid.domain.model.Factura
 import java.util.*
 
 @Composable
 fun ContenidoFiltros(
-    listaFacturas: List<Factura>,
-    filtrosViewModel: FiltrosViewModel
+    filtrosViewModel: FiltrosViewModel,
+    facturasViewModel: FacturasViewModel
                      ) {
 
-    val filtrosIniciales = remember { EstructuraFiltros(listaFacturas) }
+    val filtrosIniciales = remember { EstructuraFiltros(facturasViewModel.facturasIniciales.value) }
 
     var startDate by remember { mutableStateOf(filtrosIniciales.startDate) }
     var endDate by remember { mutableStateOf(filtrosIniciales.endDate) }
@@ -39,6 +40,8 @@ fun ContenidoFiltros(
     var isPaymentPlan by remember { mutableStateOf(filtrosIniciales.isPaymentPlan) }
 
     val context = LocalContext.current
+
+
 
     Column(
         modifier = Modifier

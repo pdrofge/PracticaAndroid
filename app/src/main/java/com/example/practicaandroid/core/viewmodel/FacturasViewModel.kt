@@ -18,16 +18,19 @@ import com.example.practicaandroid.domain.model.Factura
 class FacturasViewModel : ViewModel() {
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
     val facturas: StateFlow<List<Factura>> = _facturas
+    private val _facturasIniciales = MutableStateFlow<List<Factura>>(emptyList())
+    val facturasIniciales: StateFlow<List<Factura>> = _facturasIniciales
 
     init {
         // De momento cargamos la lista estática
         _facturas.value = FacturasResponse.listaEstatica.facturas
+        _facturasIniciales.value = _facturas.value
     }
 
 
 
     fun aplicarFiltros(filtros: FiltrosFinales) {
-       _facturas.value = Filtrar(FacturasResponse.listaEstatica.facturas, filtros)
+       _facturas.value = Filtrar(facturasIniciales.value, filtros)
     }
 
     companion object{
