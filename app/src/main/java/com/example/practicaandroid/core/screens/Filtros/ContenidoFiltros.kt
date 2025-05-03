@@ -41,9 +41,7 @@ fun ContenidoFiltros(
 
     val context = LocalContext.current
 
-
-
-
+    val filtrosDefault = filtrosIniciales  //para resetear filtros, guardamos los valores iniciales
 
 
 
@@ -212,6 +210,21 @@ fun ContenidoFiltros(
                 isFixed = false
                 hasToPay = false
                 isPaymentPlan = false
+
+
+                var resetFiltros = FiltrosFinales(
+                    startDate = filtrosDefault.startDate,
+                    endDate = filtrosDefault.endDate,
+                    minAmount = sliderPosition.start.toDouble(),
+                    maxAmount = sliderPosition.endInclusive.toDouble(),
+                    isPaid = filtrosDefault.isPaid,
+                    isCancelled = filtrosDefault.isCancelled,
+                    isFixed = filtrosDefault.isFixed,
+                    hasToPay = filtrosDefault.hasToPay,
+                    isPaymentPlan = filtrosDefault.isPaymentPlan
+                )
+
+                filtrosViewModel.enviarFiltros(resetFiltros)
 
 
             },
