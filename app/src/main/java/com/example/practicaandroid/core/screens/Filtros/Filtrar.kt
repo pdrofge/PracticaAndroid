@@ -58,15 +58,16 @@ fun filtrarEstado(
    fixed: Boolean,
    cancelled: Boolean
 ): Boolean{
-   //falla al no seleccionar ninguno
-      var res: Boolean = true
-   if((paid && !factura.decEstado.equals("Pagada"))
-      || (hasToPay && !factura.decEstado.equals("Pendiente de pago"))
-      || (paymentPlan && !factura.decEstado.equals("Plan de pago"))
-      || (fixed && !factura.decEstado.equals("Fijo"))
-      || (cancelled && !factura.decEstado.equals("Cancelado"))
+   //FALLA al seleccionar más de uno
+      var res: Boolean = false
+   if((paid && factura.decEstado.equals("Pagada"))
+      || (hasToPay && factura.decEstado.equals("Pendiente de pago"))
+      || (paymentPlan && factura.decEstado.equals("Plan de pago"))
+      || (fixed && factura.decEstado.equals("Fijo"))
+      || (cancelled && factura.decEstado.equals("Cancelado"))
+      || (!paid && !hasToPay && !paymentPlan && !fixed &&  !cancelled)
       ){
-         res = false
+         res = true
    }
    return res
 }
