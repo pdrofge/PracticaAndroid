@@ -1,6 +1,5 @@
 package com.example.practicaandroid.core.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,60 +26,31 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.practicaandroid.R
-import com.example.practicaandroid.core.screens.ContenidoFacturas.ContenidoFacturas
+import com.example.practicaandroid.core.screens.Filtros.ContenidoFiltros
 import com.example.practicaandroid.core.viewmodel.FacturasViewModel
-import com.example.practicaandroid.data_retrofit.FacturasResponse
+import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewModel: FacturasViewModel
-){
+fun FiltrosScreen(navigateBack: () -> Unit,filtrosViewModel: FiltrosViewModel,facturasViewModel: FacturasViewModel
+) {
     val layoutDirection = LocalLayoutDirection.current
-    val facturas = viewModel.facturas.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {},
-                navigationIcon = {
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .clickable(
-                                onClick = navigateBack
-                            )
-                            .padding(start = 8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color(0xFF8BC34A)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Consumo",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = Color(0xFF8BC34A)
-                        )
-                    }
-                },
                 actions = {
-                    val icon: Painter = painterResource(id = R.drawable.filtrosiconosinfondo)
-                    IconButton(onClick = { navigateToFiltros() }) {
-                        Image(
-                            painter = icon,
-                            contentDescription = "Filtrar",
-                            modifier = Modifier.size(40.dp)
+                    IconButton(onClick = { navigateBack() }) {
+                        Icon(
+                            imageVector = Icons.Filled.Clear,
+                            contentDescription = "Cerrar",
+                            modifier = Modifier.size(24.dp),
+                            tint = Color.Black
                         )
                     }
                 }
@@ -100,7 +71,7 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
             Column(modifier = Modifier.fillMaxSize()) {
 
                 Text(
-                    text = " Facturas",
+                    text = "Filtrar facturas",
                     color = Color.Black,
                     fontSize = 37.sp,
                     fontWeight = FontWeight.Bold,
@@ -109,21 +80,7 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-
-
-                if(!facturas.value.isEmpty()){
-                    ContenidoFacturas(facturas.value)
-                }else{
-                    Text(
-                        text = " No hay facturas disponibles",
-                        color = Color.Gray,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-                }
-
-
+                ContenidoFiltros(filtrosViewModel,facturasViewModel, facturasViewModel.filtrosActuales.collectAsState().value)
 
             }
         }
