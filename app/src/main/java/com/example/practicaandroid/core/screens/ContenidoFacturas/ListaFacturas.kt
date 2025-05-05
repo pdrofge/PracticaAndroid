@@ -4,19 +4,14 @@ import androidx.compose.runtime.Composable
 import com.example.practicaandroid.domain.model.Factura
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.ui.Alignment
 
 @Composable
@@ -39,7 +34,7 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
             Column(modifier = Modifier.weight(1f)) {
 
 
-                if (factura.decEstado != "Pendiente de pago"){
+                if (factura.descEstado != "Pendiente de pago"){
                     Spacer(modifier = Modifier.height(10.dp))
                 }
                 Text(
@@ -47,9 +42,9 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Medium
                 )
-                if (factura.decEstado == "Pendiente de pago") {
+                if (factura.descEstado == "Pendiente de pago") {
                     Text(
-                        text = factura.decEstado,
+                        text = factura.descEstado,
                         color = Color(0xFFFF6B6B),
                         fontSize = 16.sp
                     )
@@ -75,7 +70,7 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
 
 
         }
-        if (factura.decEstado != "Pendiente de pago"){
+        if (factura.descEstado != "Pendiente de pago"){
             Spacer(modifier = Modifier.height(10.dp))
         }
 
