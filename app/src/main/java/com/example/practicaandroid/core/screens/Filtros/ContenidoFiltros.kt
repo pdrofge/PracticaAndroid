@@ -172,22 +172,22 @@ fun ContenidoFiltros(
 
         OutlinedButton(
             onClick = {
-                // Aquí aplicaremos filtros
-                //COMPROBAR que no son valores vacíos
-                val filtrosElegidos = FiltrosFinales(
-                    startDate = startDate,
-                    endDate = endDate,
-                    minAmount = sliderPosition.start.toDouble(),
-                    maxAmount = sliderPosition.endInclusive.toDouble(),
-                    isPaid = isPaid,
-                    isCancelled = isCancelled,
-                    isFixed = isFixed,
-                    hasToPay = hasToPay,
-                    isPaymentPlan = isPaymentPlan
-
-                    )
 
                 if(checkDates(startDate, endDate)) {
+                    // Aquí aplicaremos filtros
+                    //COMPROBAR que no son valores vacíos
+                    val filtrosElegidos = FiltrosFinales(
+                        startDate = startDate,
+                        endDate = endDate,
+                        minAmount = sliderPosition.start.toDouble(),
+                        maxAmount = sliderPosition.endInclusive.toDouble(),
+                        isPaid = isPaid,
+                        isCancelled = isCancelled,
+                        isFixed = isFixed,
+                        hasToPay = hasToPay,
+                        isPaymentPlan = isPaymentPlan
+
+                    )
                     filtrosViewModel.enviarFiltros(filtrosElegidos)
                 }else{
                     showDialog.value = true

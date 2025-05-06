@@ -49,8 +49,8 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
 
             // Subtítulo
             Text(
-                //más adelante preguntar trato
-                text = "Bienvenido/a de nuevo",
+                //POSIBLE AÑADIDO: más adelante preguntar trato
+                text = "Nos alegra verte de nuevo",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.Black

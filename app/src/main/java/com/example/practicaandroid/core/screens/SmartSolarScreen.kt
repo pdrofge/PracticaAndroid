@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.core.screens.SmartSolar.*
+import com.example.practicaandroid.core.screens.SmartSolar.Detalles.DatosDetallesMock
 
 @Composable
 fun SmartSolarScreen(navigateBack: () -> Unit) {
@@ -109,7 +110,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
             when (selectedTabIndex) {
                 0 -> MiInstalacionScreen()
                 1 -> EnergiaScreen()
-                2 -> DetallesScreen()
+                2 -> DetallesScreen(DatosDetallesMock.getMock())
             }
         }
     }
