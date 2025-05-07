@@ -14,6 +14,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,14 +28,36 @@ import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
 
 @Composable
-fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
+fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
     //dos destinos: facturas y smart solar
+    // Variable para controlar el estado del botón Retromock/Retrofit
+    var isRetrofit by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFA8E6A1))
             .padding(16.dp)
     ) {
+        // Botón pequeño de Retromock/Retrofit en la esquina inferior derecha
+        Button(
+            onClick = { isRetrofit = !isRetrofit },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF0066CC) // Color azul
+            ),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .size(width = 120.dp, height = 40.dp)
+                .padding(bottom = 8.dp, end = 8.dp)
+        ) {
+            Text(
+                text = if (isRetrofit) "Retrofit" else "Mock",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -56,9 +82,9 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
                 color = Color.Black
             )
 
-            // Botones
+            // Botones originales
             Button(
-                onClick = { navigateToF()},
+                onClick = { navigateToF() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),
@@ -70,7 +96,7 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
             }
 
             Button(
-                onClick = {navigateToSS()},
+                onClick = { navigateToSS() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),
