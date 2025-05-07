@@ -60,11 +60,11 @@ fun filtrarEstado(
 ): Boolean{
    //FALLA al seleccionar más de uno
       var res: Boolean = false
-   if((paid && factura.decEstado.equals("Pagada"))
-      || (hasToPay && factura.decEstado.equals("Pendiente de pago"))
-      || (paymentPlan && factura.decEstado.equals("Plan de pago"))
-      || (fixed && factura.decEstado.equals("Fijo"))
-      || (cancelled && factura.decEstado.equals("Cancelado"))
+   if((paid && factura.descEstado.equals("Pagada"))
+      || (hasToPay && factura.descEstado.equals("Pendiente de pago"))
+      || (paymentPlan && factura.descEstado.equals("Plan de pago"))
+      || (fixed && factura.descEstado.equals("Fijo"))
+      || (cancelled && factura.descEstado.equals("Cancelado"))
       || (!paid && !hasToPay && !paymentPlan && !fixed &&  !cancelled)
       ){
          res = true

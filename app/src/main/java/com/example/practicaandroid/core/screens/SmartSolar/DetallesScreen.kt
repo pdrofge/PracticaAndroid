@@ -30,10 +30,8 @@ import com.example.practicaandroid.core.screens.SmartSolar.Detalles.DatosDetalle
 import com.example.practicaandroid.core.screens.SmartSolar.Detalles.Popup
 
 @Composable
-fun DetallesScreen(){
+fun DetallesScreen(datos: DatosDetalles){
 
-
-    val datos = DatosDetalles.ejemplo
     val showDialog = remember { mutableStateOf(false) }
 
     Box(

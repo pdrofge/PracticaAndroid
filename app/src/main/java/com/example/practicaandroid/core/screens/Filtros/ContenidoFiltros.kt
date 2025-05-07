@@ -1,7 +1,9 @@
 package com.example.practicaandroid.core.screens.Filtros
 
 import android.app.DatePickerDialog
+import android.os.Build
 import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -16,14 +18,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.practicaandroid.core.viewmodel.FacturasViewModel
 import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
-import com.example.practicaandroid.domain.model.Factura
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ContenidoFiltros(
     filtrosViewModel: FiltrosViewModel,
     facturasViewModel: FacturasViewModel,
-    filtrosPrevios: FiltrosFinales
+    filtrosPrevios: FiltrosFinales,
+    navigateBack: () -> Unit
                      ) {
 
     val filtrosIniciales = remember { EstructuraFiltros(facturasViewModel.facturasIniciales.value) }
@@ -43,6 +48,8 @@ fun ContenidoFiltros(
 
     val filtrosDefault = filtrosIniciales  //para resetear filtros, guardamos los valores iniciales
 
+    //para el popup de fecha incorrecta:
+    val showDialog = remember { mutableStateOf(false) }
 
 
     Column(
@@ -166,22 +173,28 @@ fun ContenidoFiltros(
 
         OutlinedButton(
             onClick = {
-                // Aquí aplicaremos filtros
-                //COMPROBAR que no son valores vacíos
-                val filtrosElegidos = FiltrosFinales(
-                    startDate = startDate,
-                    endDate = endDate,
-                    minAmount = sliderPosition.start.toDouble(),
-                    maxAmount = sliderPosition.endInclusive.toDouble(),
-                    isPaid = isPaid,
-                    isCancelled = isCancelled,
-                    isFixed = isFixed,
-                    hasToPay = hasToPay,
-                    isPaymentPlan = isPaymentPlan
+
+                if(checkDates(startDate, endDate)) {
+                    // Aquí aplicaremos filtros
+                    //COMPROBAR que no son valores vacíos
+                    val filtrosElegidos = FiltrosFinales(
+                        startDate = startDate,
+                        endDate = endDate,
+                        minAmount = sliderPosition.start.toDouble(),
+                        maxAmount = sliderPosition.endInclusive.toDouble(),
+                        isPaid = isPaid,
+                        isCancelled = isCancelled,
+                        isFixed = isFixed,
+                        hasToPay = hasToPay,
+                        isPaymentPlan = isPaymentPlan
 
                     )
+                    filtrosViewModel.enviarFiltros(filtrosElegidos)
+                    navigateBack()
+                }else{
+                    showDialog.value = true
+                }
 
-                filtrosViewModel.enviarFiltros(filtrosElegidos)
 
             },
             colors = buttonColors(
@@ -224,7 +237,8 @@ fun ContenidoFiltros(
                     isPaymentPlan = filtrosDefault.isPaymentPlan
                 )
 
-                filtrosViewModel.enviarFiltros(resetFiltros)
+
+                    filtrosViewModel.enviarFiltros(resetFiltros)
 
 
             },
@@ -239,6 +253,12 @@ fun ContenidoFiltros(
         ) {
             Text("Eliminar filtros")
         }
+
+
+        if(showDialog.value){
+            PopupFecha(onDismiss = {showDialog.value = false})
+        }
+
     }
 }
 
@@ -268,5 +288,28 @@ fun CheckboxWithLabel(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp)
         )
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun checkDates(startDate: String, endDate: String): Boolean {
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    val today = LocalDate.now()
+
+    val startEmpty = startDate.isEmpty()
+    val endEmpty = endDate.isEmpty()
+
+    val start = if (!startEmpty) LocalDate.parse(startDate, formatter) else null
+    val end = if (!endEmpty) LocalDate.parse(endDate, formatter) else null
+
+    return when {
+        startEmpty && endEmpty -> true
+        startEmpty && end != null && (end.isBefore(today) || end.isEqual(today)) -> true
+        start != null && (start.isBefore(today) || start.isEqual(today)) && endEmpty -> true
+        start != null && end != null &&
+                start.isBefore(today) &&
+                start.isBefore(end) &&
+                (end.isBefore(today) || end.isEqual(today)) -> true
+        else -> false
     }
 }
