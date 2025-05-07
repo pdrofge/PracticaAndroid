@@ -27,7 +27,8 @@ import java.util.*
 fun ContenidoFiltros(
     filtrosViewModel: FiltrosViewModel,
     facturasViewModel: FacturasViewModel,
-    filtrosPrevios: FiltrosFinales
+    filtrosPrevios: FiltrosFinales,
+    navigateBack: () -> Unit
                      ) {
 
     val filtrosIniciales = remember { EstructuraFiltros(facturasViewModel.facturasIniciales.value) }
@@ -189,6 +190,7 @@ fun ContenidoFiltros(
 
                     )
                     filtrosViewModel.enviarFiltros(filtrosElegidos)
+                    navigateBack()
                 }else{
                     showDialog.value = true
                 }

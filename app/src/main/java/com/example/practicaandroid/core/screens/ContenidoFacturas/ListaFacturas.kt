@@ -34,7 +34,7 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
             Column(modifier = Modifier.weight(1f)) {
 
 
-                if (factura.descEstado != "Pendiente de pago"){
+                if (factura.descEstado == "Pagada"){
                     Spacer(modifier = Modifier.height(10.dp))
                 }
                 Text(
@@ -42,7 +42,7 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Medium
                 )
-                if (factura.descEstado == "Pendiente de pago") {
+                if (factura.descEstado != "Pagada") {
                     Text(
                         text = factura.descEstado,
                         color = Color(0xFFFF6B6B),
@@ -70,7 +70,7 @@ fun ListaFacturas(factura: Factura, onClick: () -> Unit){
 
 
         }
-        if (factura.descEstado != "Pendiente de pago"){
+        if (factura.descEstado == "Pagada"){
             Spacer(modifier = Modifier.height(10.dp))
         }
 
