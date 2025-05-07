@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.practicaandroid.MainApplication
+import com.example.practicaandroid.core.screens.ContenidoFacturas.FacturasMock
 import com.example.practicaandroid.core.screens.Filtros.Filtrar
 import com.example.practicaandroid.core.screens.Filtros.FiltrosFinales
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,7 @@ class FacturasViewModel : ViewModel() {
     val facturas: StateFlow<List<Factura>> = _facturas
     private val _facturasIniciales = MutableStateFlow<List<Factura>>(emptyList())
     val facturasIniciales: StateFlow<List<Factura>> = _facturasIniciales
-
+    var lastUsed: String = "n"
     //para recordar filtros ya aplicados:
     private val _filtrosActuales = MutableStateFlow(FiltrosFinales())
     val filtrosActuales: StateFlow<FiltrosFinales> = _filtrosActuales
@@ -35,7 +36,8 @@ class FacturasViewModel : ViewModel() {
         viewModelScope.launch {
 
             try {
-                _facturas.value = RetrofitInstance.repository.getFacturas()
+                //_facturas.value = RetrofitInstance.repository.getFacturas()
+                _facturas.value = FacturasMock.getMock().facturas
             }catch (e : Exception){
             }
             _facturasIniciales.value = _facturas.value

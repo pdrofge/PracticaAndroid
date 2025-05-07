@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
 import com.example.practicaandroid.core.screens.SmartSolar.Detalles.DatosDetalles
-import com.example.practicaandroid.core.screens.SmartSolar.Detalles.DatosDetallesMock
 import com.example.practicaandroid.core.screens.SmartSolar.Detalles.Popup
 
 @Composable
