@@ -40,11 +40,12 @@ class FacturasViewModel() : ViewModel() {
     init {
 
         viewModelScope.launch {
-
-            try {
+            _isLoading.value = true
+             try {
                 _facturas.value = RetrofitInstance.repository.getFacturas()
-                //_facturas.value = FacturasMock.getMock().facturas
             }catch (e : Exception){
+
+            }finally{_isLoading.value = false
             }
             _facturasIniciales.value = _facturas.value
             // Calculamos min y max al arrancar

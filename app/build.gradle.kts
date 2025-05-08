@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation("androidx.compose.material3:material3:1.2.1")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
