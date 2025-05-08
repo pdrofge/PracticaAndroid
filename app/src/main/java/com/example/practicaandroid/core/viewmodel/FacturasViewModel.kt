@@ -43,7 +43,7 @@ class FacturasViewModel() : ViewModel() {
 
             try {
                 _facturas.value = RetrofitInstance.repository.getFacturas()
-                //_facturas.value = FacturasMock.getMock().facturas
+
             }catch (e : Exception){
             }
             _facturasIniciales.value = _facturas.value
