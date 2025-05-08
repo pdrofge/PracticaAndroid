@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +24,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,23 +43,24 @@ import com.example.practicaandroid.data_retrofit.FacturasResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewModel: FacturasViewModel
-){
+fun FacturasScreen(
+    navigateBack: () -> Unit,
+    navigateToFiltros: () -> Unit,
+    viewModel: FacturasViewModel
+) {
     val layoutDirection = LocalLayoutDirection.current
     val facturas = viewModel.facturas.collectAsState()
+    var isRetrofit = viewModel.usarRetrofit.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {},
                 navigationIcon = {
-
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
-                            .clickable(
-                                onClick = navigateBack
-                            )
+                            .clickable(onClick = navigateBack)
                             .padding(start = 8.dp)
                     ) {
                         Icon(
@@ -86,19 +90,17 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
             )
         }
     ) { innerPadding ->
-        // Contenido principal
         Box(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(
-                    top = innerPadding.calculateTopPadding() - 8.dp, //quitamos algo de espacio entre toolbar y título
+                    top = innerPadding.calculateTopPadding() - 8.dp,
                     start = innerPadding.calculateStartPadding(layoutDirection),
                     end = innerPadding.calculateEndPadding(layoutDirection),
                     bottom = innerPadding.calculateBottomPadding()
                 )
         ) {
-
             Column(modifier = Modifier.fillMaxSize()) {
-
                 Text(
                     text = " Facturas",
                     color = Color.Black,
@@ -109,11 +111,9 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-
-
-                if(!facturas.value.isEmpty()){
+                if (facturas.value.isNotEmpty()) {
                     ContenidoFacturas(facturas.value)
-                }else{
+                } else {
                     Text(
                         text = " No hay facturas disponibles",
                         color = Color.Gray,
@@ -122,9 +122,29 @@ fun FacturasScreen(navigateBack: () -> Unit,navigateToFiltros: () -> Unit, viewM
                         modifier = Modifier.padding(start = 8.dp)
                     )
                 }
+            }
 
 
+            androidx.compose.material3.Button(
+                onClick = {
 
+                    // Aquí recargaremos las facturas
+                    viewModel.recargarFacturas(!isRetrofit.value)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isRetrofit.value) Color(0xFF4CAF50) else Color(0xFF0066CC)
+                ),
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+                    .size(width = 150.dp, height = 60.dp)
+            ) {
+                Text(
+                    text = if (isRetrofit.value) "Retrofit" else "Retromock",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
             }
         }
     }

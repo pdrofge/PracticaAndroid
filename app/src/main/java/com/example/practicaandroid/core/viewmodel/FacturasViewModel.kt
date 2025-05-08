@@ -20,16 +20,20 @@ import com.example.practicaandroid.domain.model.Factura
 import kotlinx.coroutines.launch
 
 
-class FacturasViewModel : ViewModel() {
+class FacturasViewModel() : ViewModel() {
 
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
     val facturas: StateFlow<List<Factura>> = _facturas
     private val _facturasIniciales = MutableStateFlow<List<Factura>>(emptyList())
     val facturasIniciales: StateFlow<List<Factura>> = _facturasIniciales
-    var lastUsed: String = "n"
+
     //para recordar filtros ya aplicados:
     private val _filtrosActuales = MutableStateFlow(FiltrosFinales())
     val filtrosActuales: StateFlow<FiltrosFinales> = _filtrosActuales
+
+    //para recordar el estado del boton
+    private val _usarRetrofit = MutableStateFlow(true)
+    val usarRetrofit: StateFlow<Boolean> = _usarRetrofit
 
     init {
 
@@ -59,6 +63,32 @@ class FacturasViewModel : ViewModel() {
         _filtrosActuales.value = filtros
     }
 
+
+    fun recargarFacturas(usarRetrofit: Boolean) {
+        _usarRetrofit.value = usarRetrofit
+        viewModelScope.launch {
+            try {
+                _facturas.value = if (usarRetrofit) {
+                    RetrofitInstance.repository.getFacturas()
+                } else {
+                    FacturasMock.getMock().facturas
+                }
+            } catch (e: Exception) {
+                //Log.e("FacturasViewModel", "Error al obtener facturas", e)
+                _facturas.value = emptyList()
+            }
+
+            _facturasIniciales.value = _facturas.value
+
+            val minAmount = _facturasIniciales.value.minOfOrNull { it.importeOrdenacion } ?: 0.0
+            val maxAmount = _facturasIniciales.value.maxOfOrNull { it.importeOrdenacion }?.plus(1) ?: 500.0
+
+            _filtrosActuales.value = FiltrosFinales(
+                minAmount = minAmount,
+                maxAmount = maxAmount
+            )
+        }
+    }
 
     companion object{
         val factory : ViewModelProvider.Factory = viewModelFactory {

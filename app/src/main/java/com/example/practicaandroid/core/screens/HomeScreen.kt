@@ -29,8 +29,7 @@ import com.example.practicaandroid.R
 
 @Composable
 fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
-    
-    var isRetrofit by remember { mutableStateOf(false) }
+
 
     Box(
         modifier = Modifier
@@ -38,24 +37,6 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
             .background(Color(0xFFA8E6A1))
             .padding(16.dp)
     ) {
-        // Botón Retromock/Retrofit
-        Button(
-            onClick = { isRetrofit = !isRetrofit },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0066CC) // Color azul
-            ),
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .size(width = 150.dp, height = 60.dp)
-                .padding(bottom = 8.dp, end = 8.dp)
-        ) {
-            Text(
-                text = if (isRetrofit) "Retrofit" else "Retromock",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-        }
 
         Column(
             modifier = Modifier
