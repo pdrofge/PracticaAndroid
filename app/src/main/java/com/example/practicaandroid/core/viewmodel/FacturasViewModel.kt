@@ -1,7 +1,6 @@
 package com.example.practicaandroid.core.viewmodel
 
-import android.util.Log
-import androidx.compose.runtime.Composable
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -14,7 +13,6 @@ import com.example.practicaandroid.core.screens.Filtros.Filtrar
 import com.example.practicaandroid.core.screens.Filtros.FiltrosFinales
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import com.example.practicaandroid.data_retrofit.FacturasResponse
 import com.example.practicaandroid.data_retrofit.RetrofitInstance
 import com.example.practicaandroid.domain.model.Factura
 import kotlinx.coroutines.launch

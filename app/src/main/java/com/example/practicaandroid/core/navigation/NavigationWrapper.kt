@@ -5,7 +5,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import com.example.practicaandroid.core.screens.FacturasScreen
 import com.example.practicaandroid.core.screens.FiltrosScreen
 import com.example.practicaandroid.core.screens.HomeScreen
