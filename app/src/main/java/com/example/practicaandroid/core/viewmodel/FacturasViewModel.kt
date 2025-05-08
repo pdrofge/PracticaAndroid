@@ -35,6 +35,10 @@ class FacturasViewModel() : ViewModel() {
     private val _usarRetrofit = MutableStateFlow(true)
     val usarRetrofit: StateFlow<Boolean> = _usarRetrofit
 
+    //para simular una carga mientras cargo facturas usando Retrofit:
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
 
         viewModelScope.launch {
@@ -67,6 +71,7 @@ class FacturasViewModel() : ViewModel() {
     fun recargarFacturas(usarRetrofit: Boolean) {
         _usarRetrofit.value = usarRetrofit
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 _facturas.value = if (usarRetrofit) {
                     RetrofitInstance.repository.getFacturas()
@@ -76,6 +81,9 @@ class FacturasViewModel() : ViewModel() {
             } catch (e: Exception) {
                 //Log.e("FacturasViewModel", "Error al obtener facturas", e)
                 _facturas.value = emptyList()
+            }finally {
+                _isLoading.value = false
+
             }
 
             _facturasIniciales.value = _facturas.value
