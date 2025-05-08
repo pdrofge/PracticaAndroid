@@ -29,8 +29,7 @@ import com.example.practicaandroid.R
 
 @Composable
 fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
-    //dos destinos: facturas y smart solar
-    // Variable para controlar el estado del botón Retromock/Retrofit
+    
     var isRetrofit by remember { mutableStateOf(false) }
 
     Box(
@@ -39,7 +38,7 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
             .background(Color(0xFFA8E6A1))
             .padding(16.dp)
     ) {
-        // Botón pequeño de Retromock/Retrofit en la esquina inferior derecha
+        // Botón Retromock/Retrofit
         Button(
             onClick = { isRetrofit = !isRetrofit },
             colors = ButtonDefaults.buttonColors(
@@ -47,11 +46,11 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
             ),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .size(width = 120.dp, height = 40.dp)
+                .size(width = 150.dp, height = 60.dp)
                 .padding(bottom = 8.dp, end = 8.dp)
         ) {
             Text(
-                text = if (isRetrofit) "Retrofit" else "Mock",
+                text = if (isRetrofit) "Retrofit" else "Retromock",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
