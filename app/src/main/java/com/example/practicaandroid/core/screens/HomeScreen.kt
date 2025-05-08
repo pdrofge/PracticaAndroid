@@ -24,14 +24,16 @@ import androidx.compose.ui.unit.sp
 import com.example.practicaandroid.R
 
 @Composable
-fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
-    //dos destinos: facturas y smart solar
+fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit) {
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFA8E6A1))
             .padding(16.dp)
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -56,9 +58,9 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
                 color = Color.Black
             )
 
-            // Botones
+            // Botones originales
             Button(
-                onClick = { navigateToF()},
+                onClick = { navigateToF() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),
@@ -70,7 +72,7 @@ fun HomeScreen(navigateToSS: () -> Unit, navigateToF: () -> Unit){
             }
 
             Button(
-                onClick = {navigateToSS()},
+                onClick = { navigateToSS() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC80)
                 ),

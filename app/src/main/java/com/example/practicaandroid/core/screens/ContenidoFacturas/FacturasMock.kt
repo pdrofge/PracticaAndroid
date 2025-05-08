@@ -1,6 +1,5 @@
 package com.example.practicaandroid.core.screens.ContenidoFacturas
 
-import com.example.practicaandroid.core.screens.SmartSolar.Detalles.DatosDetalles
 import com.example.practicaandroid.data_retrofit.FacturasResponse
 import com.example.practicaandroid.domain.model.Factura
 
