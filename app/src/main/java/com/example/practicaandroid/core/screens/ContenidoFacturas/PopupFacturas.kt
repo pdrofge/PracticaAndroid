@@ -34,7 +34,7 @@ fun PopupFacturas(onDismiss: () -> Unit) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth(0.85f) //ancho
-                    .height(285.dp) //largo
+                    .height(200.dp) //largo
                     .offset(y = (-80).dp), //altura
                 shape = RoundedCornerShape(2.dp),
                 colors = CardDefaults.cardColors(

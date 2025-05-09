@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -63,184 +64,192 @@ fun ContenidoFiltros(
             .padding(16.dp)
     ) {
 
-        Text(text = "Con fecha de emisión", style = MaterialTheme.typography.titleMedium)
-        Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                onClick = {
-                    val calendar = Calendar.getInstance()
-                    DatePickerDialog(
-                        context,
-                        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                            startDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(bottom = 16.dp)
+        ){
+            item{
+                Text(text = "Con fecha de emisión", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = {
+                            val calendar = Calendar.getInstance()
+                            DatePickerDialog(
+                                context,
+                                { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                                    startDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+                                },
+                                calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)
+                            ).show()
                         },
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)
-                    ).show()
-                },
-                colors = buttonColors(
-                    containerColor = Color(0x1B000000),
-                    contentColor = Color.Black
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(text = if (startDate.isEmpty()) "día/mes/año" else startDate)
-            }
+                        colors = buttonColors(
+                            containerColor = Color(0x1B000000),
+                            contentColor = Color.Black
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(text = if (startDate.isEmpty()) "día/mes/año" else startDate)
+                    }
 
-            Button(
-                onClick = {
-                    val calendar = Calendar.getInstance()
-                    DatePickerDialog(
-                        context,
-                        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                            endDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+                    Button(
+                        onClick = {
+                            val calendar = Calendar.getInstance()
+                            DatePickerDialog(
+                                context,
+                                { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                                    endDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+                                },
+                                calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)
+                            ).show()
                         },
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)
-                    ).show()
-                },
-                colors = buttonColors(
-                    containerColor = Color(0x1B000000),
-                    contentColor = Color.Black
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(text = if (endDate.isEmpty()) "día/mes/año" else endDate)
-            }
-        }
+                        colors = buttonColors(
+                            containerColor = Color(0x1B000000),
+                            contentColor = Color.Black
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(text = if (endDate.isEmpty()) "día/mes/año" else endDate)
+                    }
+                }
 
-        Spacer(modifier = Modifier.height(20.dp))
-        Box( //Línea que separa
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(Color(0xFFE0E0E0))
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(text = "Por un importe", style = MaterialTheme.typography.titleMedium)
-        Spacer(modifier = Modifier.height(8.dp))
-
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-
-            // Valores seleccionados en verde
-            Text(
-                text = "${sliderPosition.start.toInt()}€ - ${sliderPosition.endInclusive.toInt()}€",
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodyMedium
-            )
-
-            // Valores límite estáticos
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "${filtrosIniciales.minAmount.toInt()}€",
-                    color = Color.Gray,
-                    style = MaterialTheme.typography.bodySmall
+                Spacer(modifier = Modifier.height(20.dp))
+                Box( //Línea que separa
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color(0xFFE0E0E0))
                 )
-                Text(
-                    text = "${filtrosIniciales.maxAmount.toInt()}€",
-                    color = Color.Gray,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(text = "Por un importe", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
 
 
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
 
-            RangeSlider(
-                value = sliderPosition,
-                onValueChange = { sliderPosition = it },
-                valueRange = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat(),
-                steps = 10,
-                colors = SliderDefaults.colors(
-                    activeTrackColor = MaterialTheme.colorScheme.primary,
-                    inactiveTrackColor = Color.LightGray,
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTickColor = Color.Transparent,
-                    inactiveTickColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                startThumb = {
-                    Box(
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary)
+
+                    // Valores seleccionados en verde
+                    Text(
+                        text = "${sliderPosition.start.toInt()}€ - ${sliderPosition.endInclusive.toInt()}€",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyMedium
                     )
-                },
-                endThumb = {
-                    Box(
+
+                    // Valores límite estáticos
+                    Row(
                         modifier = Modifier
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary)
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "${filtrosIniciales.minAmount.toInt()}€",
+                            color = Color.Gray,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = "${filtrosIniciales.maxAmount.toInt()}€",
+                            color = Color.Gray,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+
+
+
+                    RangeSlider(
+                        value = sliderPosition,
+                        onValueChange = { sliderPosition = it },
+                        valueRange = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat(),
+                        steps = 10,
+                        colors = SliderDefaults.colors(
+                            activeTrackColor = MaterialTheme.colorScheme.primary,
+                            inactiveTrackColor = Color.LightGray,
+                            thumbColor = MaterialTheme.colorScheme.primary,
+                            activeTickColor = Color.Transparent,
+                            inactiveTickColor = Color.Transparent
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        startThumb = {
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(CircleShape)
+                                    .background(MaterialTheme.colorScheme.primary)
+                            )
+                        },
+                        endThumb = {
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(CircleShape)
+                                    .background(MaterialTheme.colorScheme.primary)
+                            )
+                        }
+
                     )
                 }
 
-            )
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Box( //Línea que separa
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color(0xFFE0E0E0))
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(text = "Por estado", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+
+                CheckboxWithLabel(
+                    label = "Pagadas",
+                    checked = isPaid,
+                    onCheckedChange = { isPaid = it }
+                )
+
+                CheckboxWithLabel(
+                    label = "Anuladas",
+                    checked = isCancelled,
+                    onCheckedChange = { isCancelled = it }
+                )
+
+                CheckboxWithLabel(
+                    label = "Cuota Fija",
+                    checked = isFixed,
+                    onCheckedChange = { isFixed = it }
+                )
+
+                CheckboxWithLabel(
+                    label = "Pendientes de pago",
+                    checked = hasToPay,
+                    onCheckedChange = { hasToPay = it }
+                )
+
+                CheckboxWithLabel(
+                    label = "Plan de pago",
+                    checked = isPaymentPlan,
+                    onCheckedChange = { isPaymentPlan = it }
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+            }
         }
-
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Box( //Línea que separa
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(Color(0xFFE0E0E0))
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(text = "Por estado", style = MaterialTheme.typography.titleMedium)
-        Spacer(modifier = Modifier.height(8.dp))
-
-        CheckboxWithLabel(
-            label = "Pagadas",
-            checked = isPaid,
-            onCheckedChange = { isPaid = it }
-        )
-
-        CheckboxWithLabel(
-            label = "Anuladas",
-            checked = isCancelled,
-            onCheckedChange = { isCancelled = it }
-        )
-
-        CheckboxWithLabel(
-            label = "Cuota Fija",
-            checked = isFixed,
-            onCheckedChange = { isFixed = it }
-        )
-
-        CheckboxWithLabel(
-            label = "Pendientes de pago",
-            checked = hasToPay,
-            onCheckedChange = { hasToPay = it }
-        )
-
-        CheckboxWithLabel(
-            label = "Plan de pago",
-            checked = isPaymentPlan,
-            onCheckedChange = { isPaymentPlan = it }
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
 
 
         OutlinedButton(
