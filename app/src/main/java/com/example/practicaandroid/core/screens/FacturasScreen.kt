@@ -49,14 +49,14 @@ fun FacturasScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color(0xFF8BC34A)
+                            tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "Consumo",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Normal,
-                            color = Color(0xFF8BC34A)
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
@@ -127,7 +127,7 @@ fun FacturasScreen(
                 //recargo facturas:
                 onClick = { viewModel.recargarFacturas(!isRetrofit.value) },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isRetrofit.value) Color(0xFF4CAF50) else Color(0xFF0066CC)
+                    containerColor = if (isRetrofit.value) MaterialTheme.colorScheme.primary else Color(0xFF0066CC)
                 ),
                 modifier = Modifier
                     .align(Alignment.BottomEnd)

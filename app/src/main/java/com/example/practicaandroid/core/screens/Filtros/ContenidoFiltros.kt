@@ -4,7 +4,10 @@ import android.app.DatePickerDialog
 import android.os.Build
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.ButtonDefaults.buttonColors
@@ -13,6 +16,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -22,6 +26,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ContenidoFiltros(
@@ -79,7 +84,7 @@ fun ContenidoFiltros(
                     ).show()
                 },
                 colors = buttonColors(
-                    containerColor = Color.LightGray,
+                    containerColor = Color(0x1B000000),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -101,7 +106,7 @@ fun ContenidoFiltros(
                     ).show()
                 },
                 colors = buttonColors(
-                    containerColor = Color.LightGray,
+                    containerColor = Color(0x1B000000),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -110,30 +115,97 @@ fun ContenidoFiltros(
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+        Box( //Línea que separa
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(Color(0xFFE0E0E0))
+        )
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Por un importe", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "${sliderPosition.start.toInt()} €  -  ${sliderPosition.endInclusive.toInt()} €",
-            style = MaterialTheme.typography.bodyMedium
-        )
 
-        RangeSlider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            valueRange = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat(),
-            steps = 10,
-            modifier = Modifier.padding(horizontal = 8.dp),
-            colors = SliderDefaults.colors(
-                activeTrackColor = Color(0xFF4CAF50),
-                activeTickColor = Color(0xFF4CAF50),
-                thumbColor = Color(0xFF4CAF50)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            // Valores seleccionados en verde
+            Text(
+                text = "${sliderPosition.start.toInt()}€ - ${sliderPosition.endInclusive.toInt()}€",
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.bodyMedium
             )
-        )
 
-        Spacer(modifier = Modifier.height(24.dp))
+            // Valores límite estáticos
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "${filtrosIniciales.minAmount.toInt()}€",
+                    color = Color.Gray,
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "${filtrosIniciales.maxAmount.toInt()}€",
+                    color = Color.Gray,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
+
+
+            RangeSlider(
+                value = sliderPosition,
+                onValueChange = { sliderPosition = it },
+                valueRange = filtrosIniciales.minAmount.toFloat()..filtrosIniciales.maxAmount.toFloat(),
+                steps = 10,
+                colors = SliderDefaults.colors(
+                    activeTrackColor = MaterialTheme.colorScheme.primary,
+                    inactiveTrackColor = Color.LightGray,
+                    thumbColor = MaterialTheme.colorScheme.primary,
+                    activeTickColor = Color.Transparent,
+                    inactiveTickColor = Color.Transparent
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                startThumb = {
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary)
+                    )
+                },
+                endThumb = {
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary)
+                    )
+                }
+
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Box( //Línea que separa
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(Color(0xFFE0E0E0))
+        )
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Por estado", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
@@ -198,10 +270,10 @@ fun ContenidoFiltros(
 
             },
             colors = buttonColors(
-                containerColor = Color.White,
-                contentColor = Color(0xFF4CAF50)
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = Color.White
             ),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(50),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -272,6 +344,7 @@ fun CheckboxWithLabel(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onCheckedChange(!checked) }
             .padding(vertical = 4.dp)
     ) {
         Checkbox(
