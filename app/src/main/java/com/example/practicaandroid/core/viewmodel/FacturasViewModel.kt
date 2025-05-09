@@ -15,10 +15,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.example.practicaandroid.data_retrofit.RetrofitInstance
 import com.example.practicaandroid.domain.model.Factura
+import com.example.practicaandroid.data_room.FacturaDBRepository
 import kotlinx.coroutines.launch
 
 
-class FacturasViewModel() : ViewModel() {
+class FacturasViewModel(
+    private val facturaRepository: FacturaDBRepository
+) : ViewModel() {
 
     private val _facturas = MutableStateFlow<List<Factura>>(emptyList())
     val facturas: StateFlow<List<Factura>> = _facturas
@@ -43,6 +46,10 @@ class FacturasViewModel() : ViewModel() {
             _isLoading.value = true
             try {
                 _facturas.value = RetrofitInstance.repository.getFacturas()
+                val facturasApi = _facturas.value
+                facturasApi.forEach {
+                    facturaRepository.insertfacturas(it)
+                }
 
             }catch (e : Exception){
             }finally{
@@ -104,7 +111,7 @@ class FacturasViewModel() : ViewModel() {
                 val app = (this[APPLICATION_KEY] as MainApplication)
                 val container = app.container
                 FacturasViewModel(
-
+                    container.facturaRepository
                 )
             }
         }

@@ -18,7 +18,7 @@ import com.example.practicaandroid.core.viewmodel.FiltrosViewModel
 fun NavigationWrapper() {
     val navController = rememberNavController()
     val facturasViewModel: FacturasViewModel = viewModel(
-
+        factory = FacturasViewModel.factory
     )
     val filtrosViewModel: FiltrosViewModel = viewModel(
         factory = FiltrosViewModel.provideFactory(facturasViewModel)
