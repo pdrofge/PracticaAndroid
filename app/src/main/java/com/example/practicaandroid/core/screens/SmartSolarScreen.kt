@@ -82,6 +82,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 selectedTabIndex = selectedTabIndex,
                 modifier = Modifier.fillMaxWidth(),
                 edgePadding = 16.dp,
+                containerColor = Color(0xFFF8F8F8),
                 contentColor = Color.Black, // Color para el index
                 divider = {}, // Eliminamos  linea debajo de los elementos
                 indicator = { tabPositions ->
