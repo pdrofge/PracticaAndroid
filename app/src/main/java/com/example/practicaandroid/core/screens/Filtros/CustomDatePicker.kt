@@ -18,6 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.util.Calendar
+import androidx.compose.runtime.key
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +28,9 @@ fun CustomDatePicker(
     onDateSelected: (String) -> Unit
 ) {
     val showDialog = remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
+    //para recordar ultima fecha seleccionada
+    val selectedDateMillis = remember { mutableStateOf<Long?>(null) }
+
 
     Column {
         Button(
@@ -41,51 +45,57 @@ fun CustomDatePicker(
         }
 
         if (showDialog.value) {
-            DatePickerDialog(
-                onDismissRequest = { showDialog.value = false },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            datePickerState.selectedDateMillis?.let { millis ->
-                                val calendar = Calendar.getInstance().apply { timeInMillis = millis }
-                                val formattedDate = String.format(
-                                    "%02d/%02d/%04d",
-                                    calendar.get(Calendar.DAY_OF_MONTH),
-                                    calendar.get(Calendar.MONTH) + 1,
-                                    calendar.get(Calendar.YEAR)
-                                )
-                                onDateSelected(formattedDate)
+
+            key(selectedDateMillis.value) {
+                val datePickerState = rememberDatePickerState(initialSelectedDateMillis = selectedDateMillis.value)
+
+                DatePickerDialog(
+                    onDismissRequest = { showDialog.value = false },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                datePickerState.selectedDateMillis?.let { millis ->
+                                    selectedDateMillis.value = millis
+                                    val calendar = Calendar.getInstance().apply { timeInMillis = millis }
+                                    val formattedDate = String.format(
+                                        "%02d/%02d/%04d",
+                                        calendar.get(Calendar.DAY_OF_MONTH),
+                                        calendar.get(Calendar.MONTH) + 1,
+                                        calendar.get(Calendar.YEAR)
+                                    )
+                                    onDateSelected(formattedDate)
+                                }
+                                showDialog.value = false
                             }
-                            showDialog.value = false
+                        ) {
+                            Text("Aceptar", color = Color.White)
                         }
-                    ) {
-                        Text("Aceptar", color = Color.White)
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showDialog.value = false }) {
-                        Text("Cancelar", color = Color.White)
-                    }
-                },
-                colors = DatePickerDefaults.colors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-            ) {
-                DatePicker(
-                    state = datePickerState,
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showDialog.value = false }) {
+                            Text("Cancelar", color = Color.White)
+                        }
+                    },
                     colors = DatePickerDefaults.colors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        titleContentColor = Color.White,
-                        headlineContentColor = Color.White,
-                        weekdayContentColor = Color.White,
-                        subheadContentColor = Color.White,
-                        selectedDayContentColor = MaterialTheme.colorScheme.primary,
-                        selectedDayContainerColor = Color.White,
-                        dayContentColor = Color.White,
-                        todayContentColor = Color.Yellow,
-                        todayDateBorderColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.primary
                     )
-                )
+                ) {
+                    DatePicker(
+                        state = datePickerState,
+                        colors = DatePickerDefaults.colors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            titleContentColor = Color.Black,
+                            headlineContentColor = Color.Black,
+                            weekdayContentColor = Color.Black,
+                            subheadContentColor = Color.Black,
+                            selectedDayContentColor = MaterialTheme.colorScheme.primary,
+                            selectedDayContainerColor = Color.White,
+                            dayContentColor = Color.Black,
+                            todayContentColor = Color.White,
+                            todayDateBorderColor = Color.White
+                        )
+                    )
+                }
             }
         }
     }
