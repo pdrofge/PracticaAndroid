@@ -46,10 +46,17 @@ class FacturasViewModel(
             _isLoading.value = true
             try {
                 _facturas.value = RetrofitInstance.repository.getFacturas()
-                val facturasApi = _facturas.value
-                facturasApi.forEach {
+
+                //limpiamos nuestra DB
+                facturaRepository.clearDatabase()
+
+                //insertamos facturas en nuestra DB
+                _facturas.value.forEach {
                     facturaRepository.insertfacturas(it)
                 }
+
+                //consultamos facturas desde nuestra DB
+                _facturas.value = facturaRepository.getFacturas()
 
             }catch (e : Exception){
             }finally{
@@ -81,12 +88,11 @@ class FacturasViewModel(
             _isLoading.value = true
             try {
                 _facturas.value = if (usarRetrofit) {
-                    RetrofitInstance.repository.getFacturas()
+                    facturaRepository.getFacturas()
                 } else {
                     FacturasMock.getMock().facturas
                 }
             } catch (e: Exception) {
-                //Log.e("FacturasViewModel", "Error al obtener facturas", e)
                 _facturas.value = emptyList()
             }finally {
                 _isLoading.value = false

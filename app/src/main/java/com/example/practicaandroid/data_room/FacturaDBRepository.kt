@@ -6,13 +6,17 @@ class FacturaDBRepository(
     private val facturaDao: FacturaDao
 ) {
 
-    suspend fun getUsers() : List<Factura>{
+    suspend fun getFacturas() : List<Factura>{
         return facturaDao.getFacturas()
     }
 
     suspend fun insertfacturas(factura: Factura){
         val entity = Factura(descEstado = factura.descEstado, importeOrdenacion = factura.importeOrdenacion, fecha = factura.fecha)
         facturaDao.insertFactura(entity)
+    }
+
+    suspend fun clearDatabase() {
+        facturaDao.deleteAllFacturas()
     }
 
 }

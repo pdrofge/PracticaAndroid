@@ -18,5 +18,7 @@ interface FacturaDao {
     suspend fun getFacturas() : List<Factura>
 
 
+    @Query("DELETE FROM Factura")
+    suspend fun deleteAllFacturas()
 
 }
