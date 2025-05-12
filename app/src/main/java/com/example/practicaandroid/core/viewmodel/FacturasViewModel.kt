@@ -1,7 +1,7 @@
 package com.example.practicaandroid.core.viewmodel
 
 
-import android.Manifest
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -84,13 +84,6 @@ class FacturasViewModel(
 
     }
 
-    fun clearDB(){
-        viewModelScope.launch {
-            //limpiamos nuestra DB
-            facturaRepository.clearDatabase()
-        }
-    }
-
 
     fun aplicarFiltros(filtros: FiltrosFinales) {
        _facturas.value = Filtrar(facturasIniciales.value, filtros)
@@ -124,13 +117,6 @@ class FacturasViewModel(
                 minAmount = minAmount,
                 maxAmount = maxAmount
             )
-        }
-    }
-
-    fun clearDBOnce() {
-        if (!hasClearedDB) {
-            hasClearedDB = true
-            clearDB()
         }
     }
 

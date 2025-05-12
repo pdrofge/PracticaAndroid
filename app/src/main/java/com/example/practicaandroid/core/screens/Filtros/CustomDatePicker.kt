@@ -83,16 +83,16 @@ fun CustomDatePicker(
                     DatePicker(
                         state = datePickerState,
                         colors = DatePickerDefaults.colors(
-                            containerColor = MaterialTheme.colorScheme.primary,
+                            containerColor = Color.White,
                             titleContentColor = Color.Black,
                             headlineContentColor = Color.Black,
                             weekdayContentColor = Color.Black,
                             subheadContentColor = Color.Black,
-                            selectedDayContentColor = MaterialTheme.colorScheme.primary,
-                            selectedDayContainerColor = Color.White,
+                            selectedDayContentColor = Color.Black,
+                            selectedDayContainerColor = MaterialTheme.colorScheme.primary,
                             dayContentColor = Color.Black,
-                            todayContentColor = Color.White,
-                            todayDateBorderColor = Color.White
+                            todayContentColor = Color.Gray,
+                            todayDateBorderColor = Color.Gray
                         )
                     )
                 }
