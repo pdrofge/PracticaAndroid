@@ -77,49 +77,15 @@ fun ContenidoFiltros(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(
-                        onClick = {
-                            val calendar = Calendar.getInstance()
-                            DatePickerDialog(
-                                context,
-                                { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                                    startDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                                },
-                                calendar.get(Calendar.YEAR),
-                                calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DAY_OF_MONTH)
-                            ).show()
-                        },
-                        colors = buttonColors(
-                            containerColor = Color(0x1B000000),
-                            contentColor = Color.Black
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(text = if (startDate.isEmpty()) "día/mes/año" else startDate)
-                    }
+                    CustomDatePicker(
+                        selectedDate = startDate,
+                        onDateSelected = { startDate = it }
+                    )
 
-                    Button(
-                        onClick = {
-                            val calendar = Calendar.getInstance()
-                            DatePickerDialog(
-                                context,
-                                { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                                    endDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                                },
-                                calendar.get(Calendar.YEAR),
-                                calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DAY_OF_MONTH)
-                            ).show()
-                        },
-                        colors = buttonColors(
-                            containerColor = Color(0x1B000000),
-                            contentColor = Color.Black
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(text = if (endDate.isEmpty()) "día/mes/año" else endDate)
-                    }
+                    CustomDatePicker(
+                        selectedDate = endDate,
+                        onDateSelected = { endDate = it }
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -184,6 +150,7 @@ fun ContenidoFiltros(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
+
                         startThumb = {
                             Box(
                                 modifier = Modifier
@@ -200,8 +167,7 @@ fun ContenidoFiltros(
                                     .background(MaterialTheme.colorScheme.primary)
                             )
                         }
-
-                    )
+                                            )
                 }
 
 
@@ -360,7 +326,7 @@ fun CheckboxWithLabel(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
-                checkedColor = Color.Black,
+                checkedColor = MaterialTheme.colorScheme.primary,
                 uncheckedColor = Color.Black,
                 checkmarkColor = Color.White
             )

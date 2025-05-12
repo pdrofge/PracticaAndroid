@@ -1,5 +1,6 @@
 package com.example.practicaandroid.core.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
@@ -42,7 +45,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
 
 
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -53,7 +56,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                     .clickable {navigateBack()} //Acción de ir hacia atrás
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = "Atrás",
                     tint = MaterialTheme.colorScheme.primary
                 )
@@ -82,6 +85,7 @@ fun SmartSolarScreen(navigateBack: () -> Unit) {
                 selectedTabIndex = selectedTabIndex,
                 modifier = Modifier.fillMaxWidth(),
                 edgePadding = 16.dp,
+                containerColor = Color.White,
                 contentColor = Color.Black, // Color para el index
                 divider = {}, // Eliminamos  linea debajo de los elementos
                 indicator = { tabPositions ->

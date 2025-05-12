@@ -1,6 +1,7 @@
 package com.example.practicaandroid.core.viewmodel
 
 
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -45,10 +46,18 @@ class FacturasViewModel(
         viewModelScope.launch {
             _isLoading.value = true
             try {
+
+                //limpiamos nuestra DB
+                if (!hasClearedDB) {
+                    hasClearedDB = true
+                    facturaRepository.clearDatabase()
+                }
+
                 _facturas.value = RetrofitInstance.repository.getFacturas()
 
                 //limpiamos nuestra DB
-                facturaRepository.clearDatabase()
+                //clearDB()
+                //facturaRepository.clearDatabase()
 
                 //insertamos facturas en nuestra DB
                 _facturas.value.forEach {
@@ -112,6 +121,9 @@ class FacturasViewModel(
     }
 
     companion object{
+
+        var hasClearedDB = false
+
         val factory : ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val app = (this[APPLICATION_KEY] as MainApplication)
@@ -123,7 +135,12 @@ class FacturasViewModel(
         }
     }
 
+
+
 }
+
+
+
 
 
 
