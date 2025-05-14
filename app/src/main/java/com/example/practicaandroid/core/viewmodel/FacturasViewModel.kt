@@ -55,9 +55,6 @@ class FacturasViewModel(
 
                 _facturas.value = RetrofitInstance.repository.getFacturas()
 
-                //limpiamos nuestra DB
-                //clearDB()
-                //facturaRepository.clearDatabase()
 
                 //insertamos facturas en nuestra DB
                 _facturas.value.forEach {
